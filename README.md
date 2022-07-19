@@ -42,20 +42,20 @@ Será disponibilizada uma ferramenta no Google Sheets que ordena/ranke a lista d
 ### 3.2 Processo
 Analisando problema de negócio observa-se que se trata de projeto de Learning to Rank (LTR), e para solucioná-lo as seguintes tarefas foram realizadas:
 
-**1.0 Data Collect**
-- Foram coletados os dados em base de dados AWS Cloud e no site do Kaggle.
+**PASSO 1 - Data Collect**
+- Foram coletados os dados em base de dados AWS Cloud (utilizados para treino, validação e teste) e no site do Kaggle (para testar o modelo em produção).
 
-**2.0 Data Description**
+**PASSO 2 - Data Description**
 - As características dos dados foram analisadas brevemente observando:
   - Dimensões
   - Tipos
   - A presença de dados nulos 
   - Estatística descritiva.
 
-**3.0 Feature Engineering**
+**PASSO 3 - Feature Engineering**
 Etapa que de criação de novas features (colunas) derivadas as originais e criação de hipóteses que serão avaliadas na etapa de análise exploratória dos dados.
 
-**4.0 Exploratory Data Analysis (EDA)**
+**PASSO 4 - Exploratory Data Analysis (EDA)**
 Essa etapa é de grande importância, nela ocorre a validação ou não das hipóteses de negócio que foram levantadas. 
 A análise exploratória dos dados foi feita a partir dos seguintes passos:
 - Análise Univarida: avaliando uma variável por vez.
@@ -63,18 +63,18 @@ A análise exploratória dos dados foi feita a partir dos seguintes passos:
   Nesse momento se faz a análise/validação das hipóteses levantas do passo anterior.
   É feita a análise entre a variável resposta e as variáveis/atributos que atuam sob essa variável reposta.
   
-**5.0 Data Preparation**
+**PASSO 5 - Data Preparation**
 Preparação dos dados de forma que possibilite um melhor aprendizado do modelo de ML a ser aplicado, visto que a maioria desses tem um melhor desempenho quando se tem dados numéricos e em mesma escala.
 - Normalização: dados numéricos que tem distribuição normal.
 - Reescala: dados numéricos que não tem distribuição normal.
 - Transformação - Encoding: transformar dados categóricos em numéricos.
 
-**6.0 Feature Selection**
+**PASSO 6 - Feature Selection**
 A seleção de atributos tem o objetivo de identificar e selecionar variáveis que caracterizam bem o fenômeno e por isso são relevantes para o modelo. Para isso, foi utilizado o algoritmo Boruta  (https://github.com/scikit-learn-contrib/boruta_py) e comparado seu resultado com as análises feitas na etapa de EDA.
 
 O algoritmos de machine learning foram treinados considerando as variáveis selecionadas nessa etapa.
 
-**7.0 Machine Learning Modelling - Cross Validation e Hyperparameter Fine Tunning**
+**PASSO 7 - Machine Learning Modelling - Cross Validation e Hyperparameter Fine Tunning**
 Nesta etapa foram avaliados diferentes algoritmos de modelos de machine learning de aprendizado supervisionado, sendo estes: KNN Classifier, Logistic Regression, XGBoost Classifier, Random Forest Classifier e Extra Trees Classifier.
 
 Os modelos foram treinados utilizando a técnica de cross-validation a fim de reduzir o viés da seleção dos dados (teoria da amostragem), visto que foram utilizadas diferentes amostras dos dados, e também foi feito o ajuste dos parâmetros do modelo, de modo a encontrar o de melhor perfomance.
@@ -82,19 +82,19 @@ Os modelos foram treinados utilizando a técnica de cross-validation a fim de re
 O método "predict_proba" (as probabilidades para o target) foi usado para classificar a lista de clientes e traçar as curvas de lift e ganha, além de calcular as métricas de precision e recall.
 Com isso foi possível observar a capacidade de aprendeizado de cada modelo.
 
-**8.0 Model Training**
+**PASSO 8 - Model Training**
 - Os três modelos que obtiveram melhor performance foram colocados para treinados novamente utilizando todos os dados disponíveis
 - Os parâmetros utiliziados forama os selecionados na etapa de fune tunning
 - As performances foram avaliadas novamente e a fim de obter a capacidade de generalização dos modelos.
 - Neste passo, as métricas de precision@k e recall@k foram calculadas para diferentes valores de k (10%, 20%, 30%).
 - k é o número (ou porcentagem, neste caso) de linhas da classe 1 (aquelas que estão interessadas em seguro de veículo) no tabela de probabilidade ordenada.
 
-**9.0 Performance do Negócio (Resultado Financeiro)**
+**PASSO 9 - Performance do Negócio (Resultado Financeiro)**
 - Responder as questões de negócio.
 - Comparar resultados da lista aleatória com o da lista ordenada por propensão de compra (resultado do modelo).
 - Traduzir a performance do modelo em resultados financeiros para a Insurance All.
 
-**10.0 Deploy Modelo to Production**
+**PASSO 10 - Deploy Modelo to Production**
 - Criar a classe e API para publicação em produção.
 - Testar localmente.
 - Publicar modelo no Heroku Cloud.
@@ -142,50 +142,102 @@ COLOCAR GRÁFICOS
 
 
 ## 5.0 MODELO DE MACHINE LEARNING APLICADO
+Os modelos treinados, utilizando as técnicas de cross-validation e fine tunning, foram comparados através das métricas de precision e recall que obtiveram com a combinação de hyperparametros que teve melhor desempenho. Na tabela a seguir estão os valores médios dessas métricas e seu desvio padrão.
+COLOCAR TABELA SESSÃO 8.6
+
+A partir desses resultados, observou-se que os modelos XGBoost Classifier, Extra Tress Classifier e Random Forest Classifier obtiveram melhores resultado, e seguiram para serem novamente treinados, agora utilizando todo o conjunto de dados de treino e o conjunto de parâmetros que apresentou melhor ajuste. O modelo foi testado no conjunto de dados de validação que foi separado na sessão 6.1, assim foi possível verificar a **capacidade de aprendizado do modelo**.
+
+As métricas de recall@k e precision@k foram calculadas novamente, agora para diferentes valores de k e as curvas de lift e ganho foi plotadas e também confrontadas, observe a seguir.
+
+![image](https://user-images.githubusercontent.com/101215927/179769647-13cb4083-1a1c-4241-ae54-5b936fd82ed7.png)
+
+![image](https://user-images.githubusercontent.com/101215927/179769794-89ba6fc5-d60b-4b82-8efe-3d575815f93a.png)
+
+COLOCAR AS TABELAS DE PRECISION E RECALL DOS DIFERENTES k - sessão 9.5
+
+Com isso, pode-se confirmar o melhor desempenho do XGBoost Classifier e designá-lo para testar como modelo final e em seguida colocar em produção.
+
+Para isso, o modelo foi novamente treinado, porém agora, unindo os dados de treino e validação utilizados anteriormente e testando o modelo com os dados de teste separados na sessão 1.2, e desse modo foi verificado a **capacidade de generalização do modelo**, a qual pode ser observada nas métricas a seguir:
+
+COLOCAR TABELA 10.1 - PRECISION@K E RECALL
+
+Nota-se que o modelo continuou performando bem e com métricas muito similares as obtidas anteriormente. Assim, o XGBoost Classifier foi treinado com toda a base de dados disponível e colocado em produção.
+
 
 ## 6.0 PERFORMANCE DO MODELO
+As curvas de ganho e lift permitem verificar o bom desempenho do modelo. 
+
+**Cumulative gain curve**: ordenada por propensão de compra, relaciona a porcentagem do total de clientes (x) com a porcentagem do total de clientes que estão interessados/propensos a comprar (y).
+    
+**Lift curve**: é derivada da curva de ganho; os valores no eixo y correspondem à razão da curva de ganho em relação a baseline (ordenação aleatória) e o eixo x corresponde o percentual da base de clientes. Portanto, informa o quanto o modelo é melhor que lista aleatória.
+
+A seguir se pode observar a curvas obtidas com o modelo final XGBoost Classifier. 
+
+COLOCAR CURVAS DE LIFT E GANHO 10.1
+
+Através da curva de ganho verifica-se que em 40% da base de clientes estão inclusos mais de 80% do total de clientes interessados. Esse resultado é mais de 2x melhor que o baseline, esta relação está posta na curva de lift. 
+
+O modelo foi pubicado no Heroku Cloud (https://www.heroku.com/) e disponibilizado para o time de vendas numa planilha no Google Sheets (https://docs.google.com/spreadsheets/d/13CCxxC_E1_ihTFkELHAXVpEJL2tH35sLbGaDbn_WBvs/edit#gid=0)
+
+Qualquer funcionário da empresa consegue utilizar a planilha e estabelecer um ranking dos clientes com maior probabilidade de adquirir o seguro do veículo, utilizando o modelo em produção.
+
+Como pode ser visto na demonstração abaixo, existe um botão que, uma vez ativado, após alguns segundos, retorna a lista já ordenada pelos clientes com maior probabilidade de adquirir o novo produto.
+
+COLOCAR GIF
 
 ## 7.0 RESULTADOS DO NEGÓCIO
 
+Respondendo as questões de negócio realizadas no início do projeto, tem-se:
+
+- Qual a porcentagem de clientes interessados em adquirir um seguro de automóvel, o time de vendas conseguirá contatar fazendo 20.000 ligações?
+Considerando os 127 mil novos clientes selecionados pelo time de produtos, os quais não responderam a pesquisa para participar da campanha, tem-se que 20000 representa: 15.75% desse total.
+Desse modo, considerando que a performance do modelo se manterá para os próximos cenários, analisando a curva de ganho e a coluna de predict score acumulada, é possível afirmar que cerca de 47% do total de clientes interessados estarão contidos nos 20mil clientes que serão contatados seguindo a lista de rankeamento obtida com o modelo.
+No caso de uma lista não rankeada, uma random list, observa-se, neste caso, que seria possível contatar apenas 15.75% (baseline). Portanto, o modelo proposto supera o baseline em aproximadamente: 3.01 vezes.
+
+Outros cenários foram calculados e estão descritos no notebook.
+
+#### - Resultados Financeiros - 
+Considerando um cenário em que a base de clientes a ser contatada é a que está sendo utilizada nos dados de teste, que contabiliza: 76222 clientes, é possível estimar o retorno financeiro que a empresa terá ao utilizar lista rankeada para entrar em contato com os clientes.
+
+Inicialmente, serão consideradas algumas premissas para este cenário:
+
+- Será considerado que o valor anual médio do seguro de carro é igual ao valor anual médio do seguro de sáude desta empresa, que é de 30556.68.
+- Será assumido que as pessoas que respoderam estar interessadas no seguro irão efetivamente adquiri-lo.
+
+Nesta base de 76222 clientes tem-se 9388 clientes que estão interessados no seguro.
+ 
+ Consultando o resultado do modelo, com a lista rankeada, observa-se que no ranking 20000 estão contidos aproximadamente 72.02% destes clientes interessados no seguro, que corresponde a 6761 clientes.
+ 
+No caso da random list, contatando os 20000 clientes apenas 26.24% dos clientes interessados estariam entre esses, que corresponde a 2463 clientes.
+- É possível observar essas relações na curve de ganho acumulativo analisando as intercções com a linha verde, que aparece a seguir:
+
+![image](https://user-images.githubusercontent.com/101215927/179783747-9a1612e4-d449-4d60-8873-c0929bab9f49.png)
+
+Desse modo, a receita bruta esperada através dos seguros vendidos aos clientes contatados utilizando a lista rankeada é de: $206593713.48. Enquanto que  utilizando a random list é de: **$75261102.84**.
+
+Portanto, o modelo é cerca de 2.75x melhor que a random list.
+
+- Essa relação está posta na curva de lift (ver intercções com a linha verde):
+![image](https://user-images.githubusercontent.com/101215927/179783920-d21f23f0-c09b-4af6-811b-33e905d3ab24.png)
+
+
 ## 8.0 CONCLUSÕES
 
+Com o resultado obtido é razoável considerar que o projeto foi bem sucedido, visto que a eficiência do modelo mais que dobrou o alcance do time de vendas em contatar os clientes interessados considerando o limite da campanha, que foi de 20 mil ligações.
+
+Espera-se que o modelo em produção continue com essa performance na predição para dados de novos clientes, e desse modo o acesso a predição via planilha favorecerá a prospecção de novos clientes, atrelado a uma redução de custo e consequentemente aumento de faturamento pela empresa.
+
+Além disso, com os insights tirados do estudo e bom aproveitamento da planilha criada, que possibilita simular clientes e suas características e com isso obter sua propensão de compra, é possível direcionar campanhas de marketing e aquisição de novos clientes com base nessas informações.
+
 ## 9.0 PRÓXIMOS PASSOS
+Para um próximo ciclo CRISP, pode-se considerar:
+
+- Estudar a necessidade/possibilidade de balancear os dados;
+- Treinar diferentes modelos de classificação.
 
 ## 10.0 REFERÊNCIAS
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+- Dataset e problema obtidos no Kaggle (https://www.kaggle.com/datasets/anmolkumar/health-insurance-cross-sell-prediction)
+- https://medium.com/@m_n_malaeb/recall-and-precision-at-k-for-recommender-systems-618483226c54
+- https://medium.com/turing-talks/como-avaliar-seu-modelo-de-classifica%C3%A7%C3%A3o-acd2a03690e
 
