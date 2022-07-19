@@ -42,20 +42,20 @@ Será disponibilizada uma ferramenta no Google Sheets que ordena/ranke a lista d
 ### 3.2 Processo
 Analisando problema de negócio observa-se que se trata de projeto de Learning to Rank (LTR), e para solucioná-lo as seguintes tarefas foram realizadas:
 
-####**PASSO 1 - Data Collect**
+#### PASSO 1 - Data Collect
 - Foram coletados os dados em base de dados AWS Cloud (utilizados para treino, validação e teste) e no site do Kaggle (para testar o modelo em produção).
 
-####**PASSO 2 - Data Description**
+#### PASSO 2 - Data Description
 - As características dos dados foram analisadas brevemente observando:
   - Dimensões
   - Tipos
   - A presença de dados nulos 
   - Estatística descritiva.
 
-####**PASSO 3 - Feature Engineering**
+#### PASSO 3 - Feature Engineering
 Etapa que de criação de novas features (colunas) derivadas as originais e criação de hipóteses que serão avaliadas na etapa de análise exploratória dos dados.
 
-####**PASSO 4 - Exploratory Data Analysis (EDA)**
+#### PASSO 4 - Exploratory Data Analysis (EDA)
 Essa etapa é de grande importância, nela ocorre a validação ou não das hipóteses de negócio que foram levantadas. 
 A análise exploratória dos dados foi feita a partir dos seguintes passos:
 - Análise Univarida: avaliando uma variável por vez.
@@ -63,18 +63,18 @@ A análise exploratória dos dados foi feita a partir dos seguintes passos:
   Nesse momento se faz a análise/validação das hipóteses levantas do passo anterior.
   É feita a análise entre a variável resposta e as variáveis/atributos que atuam sob essa variável reposta.
   
-####**PASSO 5 - Data Preparation**
+#### PASSO 5 - Data Preparation
 Preparação dos dados de forma que possibilite um melhor aprendizado do modelo de ML a ser aplicado, visto que a maioria desses tem um melhor desempenho quando se tem dados numéricos e em mesma escala.
 - Normalização: dados numéricos que tem distribuição normal.
 - Reescala: dados numéricos que não tem distribuição normal.
 - Transformação - Encoding: transformar dados categóricos em numéricos.
 
-####**PASSO 6 - Feature Selection**
+#### PASSO 6 - Feature Selection
 A seleção de atributos tem o objetivo de identificar e selecionar variáveis que caracterizam bem o fenômeno e por isso são relevantes para o modelo. Para isso, foi utilizado o algoritmo Boruta  (https://github.com/scikit-learn-contrib/boruta_py) e comparado seu resultado com as análises feitas na etapa de EDA.
 
 O algoritmos de machine learning foram treinados considerando as variáveis selecionadas nessa etapa.
 
-####**PASSO 7 - Machine Learning Modelling - Cross Validation e Hyperparameter Fine Tunning**
+#### PASSO 7 - Machine Learning Modelling - Cross Validation e Hyperparameter Fine Tunning
 Nesta etapa foram avaliados diferentes algoritmos de modelos de machine learning de aprendizado supervisionado, sendo estes: KNN Classifier, Logistic Regression, XGBoost Classifier, Random Forest Classifier e Extra Trees Classifier.
 
 Os modelos foram treinados utilizando a técnica de cross-validation a fim de reduzir o viés da seleção dos dados (teoria da amostragem), visto que foram utilizadas diferentes amostras dos dados, e também foi feito o ajuste dos parâmetros do modelo, de modo a encontrar o de melhor perfomance.
@@ -82,19 +82,19 @@ Os modelos foram treinados utilizando a técnica de cross-validation a fim de re
 O método "predict_proba" (as probabilidades para o target) foi usado para classificar a lista de clientes e traçar as curvas de lift e ganha, além de calcular as métricas de precision e recall.
 Com isso foi possível observar a capacidade de aprendeizado de cada modelo.
 
-####**PASSO 8 - Model Training**
+#### PASSO 8 - Model Training
 - Os três modelos que obtiveram melhor performance foram colocados para treinados novamente utilizando todos os dados disponíveis
 - Os parâmetros utiliziados forama os selecionados na etapa de fune tunning
 - As performances foram avaliadas novamente e a fim de obter a capacidade de generalização dos modelos.
 - Neste passo, as métricas de precision@k e recall@k foram calculadas para diferentes valores de k (10%, 20%, 30%).
 - k é o número (ou porcentagem, neste caso) de linhas da classe 1 (aquelas que estão interessadas em seguro de veículo) no tabela de probabilidade ordenada.
 
-####**PASSO 9 - Performance do Negócio (Resultado Financeiro)**
+#### PASSO 9 - Performance do Negócio (Resultado Financeiro)
 - Responder as questões de negócio.
 - Comparar resultados da lista aleatória com o da lista ordenada por propensão de compra (resultado do modelo).
 - Traduzir a performance do modelo em resultados financeiros para a Insurance All.
 
-####**PASSO 10 - Deploy Modelo to Production**
+#### PASSO 10 - Deploy Modelo to Production
 - Criar a classe e API para publicação em produção.
 - Testar localmente.
 - Publicar modelo no Heroku Cloud.
