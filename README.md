@@ -1,6 +1,6 @@
 # Health Insurance Cross-Sell
 
-COLOCAR FOTO
+<img src="https://github.com/brunnaneri/health_insurance_cross_sell/blob/main/images/vehicle-insurance.jpg?raw=true" width=70% height=70% title="Health-Insurance-Ranking" alt="project_cover_image"/>
 
 A Insurance All é uma empresa que fornece seguro de saúde para seus clientes e o time de produtos está analisando a possibilidade de oferecer aos assegurados, um novo produto: Um seguro de automóveis.
 
@@ -222,7 +222,8 @@ Qualquer funcionário da empresa consegue utilizar a planilha e estabelecer um r
 
 Como pode ser visto na demonstração abaixo, existe um botão que, uma vez ativado, após alguns segundos, retorna a lista já ordenada pelos clientes com maior probabilidade de adquirir o novo produto.
 
-COLOCAR GIF
+<img src="https://github.com/brunnaneri/health_insurance_cross_sell/blob/main/images/gif_sheets.gif" alt="cumulative gains curve and lift curve" title="cumulative gains curve and lift curve" align="center" height="500" class="center"/>
+
 
 ## 7.0 RESULTADOS DO NEGÓCIO
 
