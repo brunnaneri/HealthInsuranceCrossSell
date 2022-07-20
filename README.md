@@ -53,7 +53,7 @@ Analisando problema de negócio observa-se que se trata de um projeto de Learnin
   - Estatística descritiva.
 
 #### PASSO 3 - Feature Engineering
-Etapa que de criação de novas features (colunas) derivadas as originais e criação de hipóteses que serão avaliadas na etapa de análise exploratória dos dados.
+Etapa de criação de novas features (colunas) derivadas as originais e criação de hipóteses que serão avaliadas na etapa de análise exploratória dos dados.
 
 #### PASSO 4 - Exploratory Data Analysis (EDA)
 Essa etapa é de grande importância, nela ocorre a validação ou não das hipóteses de negócio que foram levantadas. 
@@ -75,19 +75,19 @@ A seleção de atributos tem o objetivo de identificar e selecionar variáveis q
 O algoritmos de machine learning foram treinados considerando as variáveis selecionadas nessa etapa.
 
 #### PASSO 7 - Machine Learning Modelling - Cross Validation e Hyperparameter Fine Tunning
-Nesta etapa foram avaliados diferentes algoritmos de modelos de machine learning de aprendizado supervisionado, sendo estes: KNN Classifier, Logistic Regression, XGBoost Classifier, Random Forest Classifier e Extra Trees Classifier.
+Nesta etapa foram avaliados diferentes algoritmos de classificaçãao de modelos de machine learning de aprendizado supervisionado, sendo estes: KNN Classifier, Logistic Regression, XGBoost Classifier, Random Forest Classifier e Extra Trees Classifier.
 
 Os modelos foram treinados utilizando a técnica de cross-validation a fim de reduzir o viés da seleção dos dados (teoria da amostragem), visto que foram utilizadas diferentes amostras dos dados, e também foi feito o ajuste dos parâmetros do modelo, de modo a encontrar o de melhor perfomance.
 
-O método "predict_proba" (as probabilidades para o target) foi usado para classificar a lista de clientes e traçar as curvas de lift e ganha, além de calcular as métricas de precision e recall.
-Com isso foi possível observar a capacidade de aprendeizado de cada modelo.
+O método "predict_proba" (as probabilidades para o target) foi usado para classificar a lista de clientes e traçar as curvas de lift e ganho, além de calcular as métricas de precision e recall.
+Com isso foi possível observar a capacidade de aprendizado de cada modelo.
 
 #### PASSO 8 - Model Training
-- Os três modelos que obtiveram melhor performance foram colocados para treinados novamente utilizando todos os dados disponíveis
-- Os parâmetros utiliziados forama os selecionados na etapa de fune tunning
-- As performances foram avaliadas novamente e a fim de obter a capacidade de generalização dos modelos.
+- Os três modelos que obtiveram melhor performance foram treinados novamente utilizando todos os dados disponíveis
+- Os parâmetros utilizados foram os selecionados na etapa de fune tunning
+- As performances foram avaliadas novamente a fim de se obter a capacidade de generalização dos modelos.
 - Neste passo, as métricas de precision@k e recall@k foram calculadas para diferentes valores de k (10%, 20%, 30%).
-- k é o número (ou porcentagem, neste caso) de linhas da classe 1 (aquelas que estão interessadas em seguro de veículo) no tabela de probabilidade ordenada.
+- k corresponde ao número (ou porcentagem, neste caso) de linhas da classe 1 (aquelas que estão interessadas no seguro de veículo) no tabela de probabilidade ordenada.
 
 #### PASSO 9 - Performance do Negócio (Resultado Financeiro)
 - Responder as questões de negócio.
@@ -109,14 +109,14 @@ Com isso foi possível observar a capacidade de aprendeizado de cada modelo.
 #### 3.3.2 Ferramentas
 - Python 3.8.12;
 - Jupyter Notebook;
-- Git e Github;
-- Coggle Mindmaps;
-- Heroku Cloud;
 - Algoritmos de Regressão e Classificação;
 - Pacotes de Machine Learning sklearn e xgboost;
 - BorutaPy (seleção de atributos);
 - Flask - Python API's;
-- Google Sheets Apps Script.
+- Google Sheets Apps Script;
+- Git e Github;
+- Heroku Cloud;
+- Coggle Mindmaps.
 
 ## 4.0 TOP 4 INSIGHTS
 Durante a análise exploratória de dados, na etapa de validação das hipóteses, foram gerados insights ao time de negócio.
@@ -161,7 +161,7 @@ Os modelos treinados, utilizando as técnicas de cross-validation e fine tunning
 | R_Forest| 0.29578+/-0.00117 |0.82257+/-0.00523|
 | E_Trees| 0.30208+/-0.00116 | 0.80834+/-0.0031 |
 
-A partir desses resultados, observou-se que os modelos XGBoost Classifier, Extra Tress Classifier e Random Forest Classifier obtiveram melhores resultado, e seguiram para serem novamente treinados, agora utilizando todo o conjunto de dados de treino e o conjunto de parâmetros que apresentou melhor ajuste. O modelo foi testado no conjunto de dados de validação que foi separado na sessão 6.1, assim foi possível verificar a **capacidade de aprendizado do modelo**.
+A partir desses resultados, observou-se que os modelos XGBoost Classifier, Extra Tress Classifier e Random Forest Classifier obtiveram melhor desempenho, e seguiram para serem novamente treinados, desta vez utilizando todo o conjunto de dados de treino e o conjunto de parâmetros que apresentou melhor ajuste. O modelo foi testado no conjunto de dados de validação que foi separado na sessão 6.1, assim foi possível verificar a **capacidade de aprendizado do modelo**.
 
 As métricas de recall@k e precision@k foram calculadas novamente, agora para diferentes valores de k e as curvas de lift e ganho foi plotadas e também confrontadas, observe a seguir.
 
@@ -240,7 +240,7 @@ No caso de uma lista não rankeada, uma random list, observa-se, neste caso, que
 Outros cenários foram explorados e estão descritos no notebook.
 
 ####  Resultados Financeiros 
-Considerando um cenário em que a base de clientes a ser contatada é a que está sendo utilizada nos dados de teste, que contabiliza: 76222 clientes, é possível estimar o retorno financeiro que a empresa terá ao utilizar lista rankeada para entrar em contato com os clientes.
+Considerando um cenário em que a base de clientes a ser contatada é a que está sendo utilizada nos dados de teste, que contabiliza: 76222 clientes, é possível estimar o retorno financeiro que a empresa terá ao utilizar a lista rankeada para entrar em contato com os clientes.
 
 Inicialmente, serão consideradas algumas premissas para este cenário:
 
@@ -256,9 +256,9 @@ No caso da random list, contatando os 20000 clientes apenas 26.24% dos clientes 
 
 ![image](https://user-images.githubusercontent.com/101215927/179783747-9a1612e4-d449-4d60-8873-c0929bab9f49.png)
 
-Desse modo, a receita bruta esperada através dos seguros vendidos aos clientes contatados utilizando a lista rankeada é de: $206593713.48. Enquanto que  utilizando a random list é de: **$75261102.84**.
+Desse modo, a receita bruta esperada através dos seguros vendidos aos clientes contatados utilizando a lista rankeada é de: **$206593713.48**. Enquanto que  utilizando a random list é de: **$75261102.84**.
 
-Portanto, o modelo é cerca de 2.75x melhor que a random list.
+Portanto, **o modelo é cerca de 2.75x melhor que a random list**.
 
 - Essa relação está posta na curva de lift (ver intercções com a linha verde):
 ![image](https://user-images.githubusercontent.com/101215927/179783920-d21f23f0-c09b-4af6-811b-33e905d3ab24.png)
