@@ -37,10 +37,10 @@ Algumas premissas foram assumidas no projeto durante o desenvolvimento da soluç
 ## 3.0 PLANEJAMENTO DA SOLUÇÃO
 
 ### 3.1 Produto Final
-Será disponibilizada uma ferramenta no Google Sheets que ordena/ranke a lista de clientes repassada de acordo com a sua propensão de compra (assinatura do seguro), de forma que os clientes com maior propensão estejam alocados no início da lista.
+Será disponibilizada uma ferramenta no Google Sheets que ordena/rankea a lista de clientes repassada de acordo com a sua propensão de compra (assinatura do seguro), de forma que os clientes com maior propensão estejam alocados no início da lista.
 
 ### 3.2 Processo
-Analisando problema de negócio observa-se que se trata de projeto de Learning to Rank (LTR), e para solucioná-lo as seguintes tarefas foram realizadas:
+Analisando problema de negócio observa-se que se trata de um projeto de Learning to Rank (LTR), e para solucioná-lo as seguintes tarefas foram realizadas:
 
 #### PASSO 1 - Data Collect
 - Foram coletados os dados em base de dados AWS Cloud (utilizados para treino, validação e teste) e no site do Kaggle (para testar o modelo em produção).
