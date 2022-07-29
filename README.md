@@ -1,6 +1,6 @@
-# Health Insurance Cross-Sell
+# <p align="center"> Health Insurance Cross-Sell </p>
 
-<img src="https://github.com/brunnaneri/health_insurance_cross_sell/blob/main/images/vehicle-insurance.jpg?raw=true" width=70% height=70% title="Health-Insurance-Ranking" alt="project_cover_image"/>
+<p align="center"> <img src="https://github.com/brunnaneri/health_insurance_cross_sell/blob/main/images/vehicle-insurance.jpg?raw=true" width=70% height=70% title="Health-Insurance-Ranking" alt="project_cover_image"/> </p>
 
 A Insurance All é uma empresa que fornece seguro de saúde para seus clientes e o time de produtos está analisando a possibilidade de oferecer aos assegurados, um novo produto: Um seguro de automóveis.
 
