@@ -109,7 +109,7 @@ Com isso foi possível observar a capacidade de aprendizado de cada modelo.
 #### 3.3.2 Ferramentas
 - Python 3.8.12;
 - Jupyter Notebook;
-- Algoritmos de Regressão e Classificação;
+- Algoritmos de Classificação;
 - Pacotes de Machine Learning sklearn e xgboost;
 - BorutaPy (seleção de atributos);
 - Flask - Python API's;
